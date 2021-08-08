@@ -7,26 +7,68 @@
 
     <!-- Bootstrap CSS -->
     <link href="./static/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .closebtn{
+            position: absolute;
+        }
+
+        .closebtn:hover
+        { 
+            color: red;
+        }
+
+  </style>
+
      <script src="./static/jquery.min.js"></script>
      <script src="./static/jquery-ui.min.js"></script>
     <title>Hello, world!</title>
     <script>
-        $( function() {
-    // $( "#sortable" ).sortable();
-    // $( "#sortable" ).disableSelection();
+    //     $( function() {
+    // // $( "#sortable" ).sortable();
+    // // $( "#sortable" ).disableSelection();
+    //           $("#sortimg").sortable();
+    //           $("#sortimg").disableSelection();
+    //   } );
+      
+        $(document).ready(function(){
               $("#sortimg").sortable();
               $("#sortimg").disableSelection();
-      } );
-      
+              // $("#sortimg").change(function(){
+              //         alert("文本已被修改");
+              // });
+
+              $(".closebtn").click(function(){
+                // $("#div1").remove();
+                console.log("click close btn");
+                $(this).parent().remove();
+              });
+        });
+
+  function clickclosebtn(e){
+    $(this).parent().remove();
+  };
+
+
+  function relistenclsbtn(){
+    $(".closebtn").click(function(){
+                // $("#div1").remove();
+                console.log("click close btn");
+                $(this).parent().remove();
+    });
+  };
+
+
   function dragOverHandler(ev) {
       // console.log('File(s) in drop zone');
       // Prevent default behavior (Prevent file from being opened)
       ev.preventDefault();
-    }
+  }
 
 
     function append_img_li(dt){
-        $("#sortimg").append('<li class="col-md-3 col-sm-6 d-inline-block"> <img class="img-thumbnail" src="' + dt +'" alt="Thumbnail image"> </li>');
+        $("#sortimg").append('<li class="col-md-2 col-sm-6 d-inline-block"><div class="closebtn" >X</div><img class="img-thumbnail" src="' + dt +'" alt="Thumbnail image"> </li>');
+        relistenclsbtn();
     }
 
     function dropHandler(ev) {
@@ -52,7 +94,7 @@
             }
 
             const reader = new FileReader();
-            reader.onload = (function() { return function(e) { /*aImg.src = e.target.result; */ console.log( e.target.result); append_img_li(e.target.result);}; })();
+            reader.onload = (function() { return function(e) { /*aImg.src = e.target.result; */  append_img_li(e.target.result);}; })();
             reader.readAsDataURL(file);
             // $("#sortimg").append('<li class="col-md-3 col-sm-10 d-inline-block"> <img class="img-thumbnail" src="./test02.jpeg" alt="Thumbnail image"> </li>');
           }
